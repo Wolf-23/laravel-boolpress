@@ -23,6 +23,16 @@ class PostController extends Controller
             ]
         );
     }
+    
+    public function show($slug)
+    {
+        $post = Post::where('slug', $slug)->with(['category', 'tags'])->firstOrFail();
+
+        return response()->json([
+            'success' => true,
+            'result' => $post
+        ]);
+    }
 }
 
 

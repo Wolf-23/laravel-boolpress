@@ -2092,7 +2092,29 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ShowPost'
+  name: 'ShowPost',
+  data: function data() {
+    return {
+      post: null
+    };
+  },
+  methods: {
+    getSinglePost: function getSinglePost() {
+      var _this = this;
+
+      var slug = this.$route.params.slug;
+      axios.get('/api/posts/' + slug).then(function (response) {
+        _this.post = response.data.result;
+      })["catch"](function (error) {
+        _this.$router.push({
+          name: 'not-found'
+        });
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getSinglePost();
+  }
 });
 
 /***/ }),
@@ -2258,7 +2280,7 @@ var render = function render() {
       to: {
         name: "showpost",
         params: {
-          oldslug: _vm.post.slug
+          slug: _vm.post.slug
         }
       }
     }
@@ -2506,19 +2528,47 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
+  return _vm.post ? _c("div", {
+    staticClass: "container mt-5"
+  }, [_c("div", {
+    staticClass: "card",
+    staticStyle: {
+      width: "30rem"
+    }
+  }, [_c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.post.media,
+      alt: _vm.post.title
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("h2", {
+    staticClass: "card-title"
+  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v("Scritto da: " + _vm._s(_vm.post.author))]), _vm._v(" "), _c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v("Categoria: " + _vm._s(_vm.post.category ? _vm.post.category.name : "Nessuna Categoria"))]), _vm._v(" "), _c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v("Tag:")]), _vm._v(" "), _vm._l(_vm.post.tags, function (tag) {
+    return _c("span", {
+      key: tag.id,
+      staticClass: "mr-2 badge badge-success"
+    }, [_vm._v(_vm._s(tag.name))]);
+  }), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _c("router-link", {
+    staticClass: "btn btn-primary mt-3",
+    attrs: {
+      to: {
+        name: "blog"
+      }
+    }
+  }, [_vm._v("Torna alla lista")])], 2)])]) : _vm._e();
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "container"
-  }, [_c("h1", {
-    staticClass: "mt-5"
-  }, [_vm._v("Pagina Show")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

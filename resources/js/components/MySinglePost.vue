@@ -17,7 +17,7 @@
             <div v-else>
                 <strong>Nessun Tag</strong>
             </div>
-            <router-link :to="{name: 'showpost', params: {oldslug: post.slug}}" class="btn btn-primary">Show More</router-link>
+            <router-link :to="{name: 'showpost', params: {slug: post.slug}}" class="btn btn-primary">Show More</router-link>
         </div>
     </div>
 </template>
