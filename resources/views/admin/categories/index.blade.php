@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-      <a href="{{route('admin.tags.create')}}" class="btn btn-success mb-3">Crea Nuova Categoria</a>
+      <a href="{{route('admin.categories.create')}}" class="btn btn-success mb-3">Crea Nuova Categoria</a>
         <table class="table table-dark">
             <thead>
               <tr>
